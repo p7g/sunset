@@ -228,10 +228,13 @@ function! s:sunset()
   endif
 endfunction
 
-let s:SUNRISE_TIME = s:calculate(s:SUNRISE)
-let s:SUNSET_TIME = s:calculate(s:SUNSET)
-call s:sunset()
+function! Sunset_recalculate()
+  let s:SUNRISE_TIME = s:calculate(s:SUNRISE)
+  let s:SUNSET_TIME = s:calculate(s:SUNSET)
+  call s:sunset()
+endfunction
 
+call Sunset_recalculate()
 autocmd CursorHold * nested call s:sunset()
 
 call s:restore_cpoptions()
