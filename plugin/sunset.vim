@@ -42,9 +42,14 @@ if !exists('*strftime')
   call add(s:errors, 'Requires a system with strftime()')
 endif
 
+function! s:get_utc_offset()
+  return str2nr(strftime("%z")[:2])
+endfunction
+
 " Get the utc offset from the time zone offset
-if !exists('g:sunset_utc_offset')
-    let g:sunset_utc_offset = str2nr(strftime("%z")[:2])
+let s:had_explicit_utc_offset = exists('g:sunset_utc_offset')
+if !had_explicit_utc_offset
+    let g:sunset_utc_offset = s:get_utc_offset()
 endif
 
 let s:required_options = ['g:sunset_latitude',
@@ -231,6 +236,9 @@ endfunction
 function! Sunset_recalculate()
   let s:DAYTIME_CHECKED = 0
   let s:NIGHTTIME_CHECKED = 0
+  if !s:had_explicit_utc_offset
+    let g:sunset_utc_offset = s:get_utc_offset()
+  endif
   let s:SUNRISE_TIME = s:calculate(s:SUNRISE)
   let s:SUNSET_TIME = s:calculate(s:SUNSET)
   call s:sunset()
