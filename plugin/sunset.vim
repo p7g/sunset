@@ -233,7 +233,7 @@ function! s:sunset()
   endif
 endfunction
 
-function! Sunset_recalculate()
+function! s:sunset_recalculate()
   let s:DAYTIME_CHECKED = 0
   let s:NIGHTTIME_CHECKED = 0
   if !s:had_explicit_utc_offset
@@ -244,7 +244,9 @@ function! Sunset_recalculate()
   call s:sunset()
 endfunction
 
-call Sunset_recalculate()
+call s:sunset_recalculate()
 autocmd CursorHold * nested call s:sunset()
+
+command! SunsetRecalculate call <SID>sunset_recalculate()
 
 call s:restore_cpoptions()
