@@ -48,7 +48,7 @@ endfunction
 
 " Get the utc offset from the time zone offset
 let s:had_explicit_utc_offset = exists('g:sunset_utc_offset')
-if !had_explicit_utc_offset
+if !s:had_explicit_utc_offset
     let g:sunset_utc_offset = s:get_utc_offset()
 endif
 
