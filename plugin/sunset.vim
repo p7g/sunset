@@ -229,6 +229,8 @@ function! s:sunset()
 endfunction
 
 function! Sunset_recalculate()
+  let s:DAYTIME_CHECKED = 0
+  let s:NIGHTTIME_CHECKED = 0
   let s:SUNRISE_TIME = s:calculate(s:SUNRISE)
   let s:SUNSET_TIME = s:calculate(s:SUNSET)
   call s:sunset()
